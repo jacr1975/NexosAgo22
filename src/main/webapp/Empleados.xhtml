@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prueba Nexos</title>
+	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+		rel="stylesheet"></link>
+</h:head>
+
+<h:body>
+	<h:form id="prueba_nexos">
+
+
+		<p:dataTable id="emplList" var="empl" value="#{empleadosView.emps}">
+			<p:column headerText="Id">
+				<h:outputText value="#{empl.id}" />
+			</p:column>
+
+			<p:column headerText="documento_tipo">
+				<h:outputText value="#{empl.documento_tipo}" />
+			</p:column>
+
+			<p:column headerText="documento_numero">
+				<h:outputText value="#{empl.documento_numero}" />
+			</p:column>
+
+			<p:column headerText="nombres">
+				<h:outputText value="#{empl.nombres}" />
+			</p:column>
+
+			<p:column headerText="apellidos">
+				<h:outputText value="#{empl.apellidos}" />
+			</p:column>
+
+			<p:column headerText="id_departamento">
+				<h:outputText value="#{empl.departamentos_id}" />
+			</p:column>
+
+			<p:column headerText="ciudad">
+				<h:outputText value="#{empl.ciudad}" />
+			</p:column>
+
+			<p:column headerText="direccion">
+				<h:outputText value="#{empl.direccion}" />
+			</p:column>
+
+			<p:column headerText="correo_electronico">
+				<h:outputText value="#{empl.correo_electronico}" />
+			</p:column>
+
+			<p:column headerText="telefono">
+				<h:outputText value="#{empl.telefono}" />
+			</p:column>
+
+			<p:column headerText="Fecha de Creacion">
+				<h:outputText value="#{empl.fecha_hora_crea}" />
+			</p:column>
+
+			<p:column headerText="Fecha de Modificacion">
+				<h:outputText value="#{empl.fecha_hora_modifica}" />
+
+			</p:column>
+
+			<p:column>
+				<p:commandButton update="emplList" value="Delete"
+					icon="ui-icon-closethick"
+					action="#{empleadosView.deleteEmpl(empl.id)}"
+					class="btn btn-primary">
+				</p:commandButton>
+			</p:column>
+
+			<p:column>
+				<p:commandButton update="@form " value="Update"
+					icon="ui-icon-closethick"
+					action="#{empleadosView.updateEmpl(empl.id)}"
+					oncomplete="PF('crearDialog2').show()">
+				</p:commandButton>
+			</p:column>
+
+		</p:dataTable>
+		<br></br>
+
+		<p:commandButton id="crear" value="Crear" update="@form "
+			action="#{empleadosView.limpiar}"
+			oncomplete="PF('crearDialog').show()" />
+
+		<p:dialog header="Crear" widgetVar="crearDialog" id="dialog"
+			modal="true" resizable="false">
+
+			<h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;"
+				id="pan1">
+
+				<p:outputLabel for="t_doc" value="Selecciona tipo de documento:" />
+				<p:selectOneMenu id="t_doc"
+					value="#{empleadosView.emp1.documento_tipo}">
+					<f:selectItem itemLabel="Selecciona opcion:" itemValue="" />
+					<f:selectItem itemLabel="Cedula de Ciudadania" itemValue="CC" />
+					<f:selectItem itemLabel="Registro Civil" itemValue="RC" />
+					<f:selectItem itemLabel="Tarjeta de Identidad" itemValue="TI" />
+					<f:selectItem itemLabel="Cedula de Extranjeria" itemValue="CE" />
+
+				</p:selectOneMenu>
+
+				<br></br>
+
+
+				<p:outputLabel for="documento_numero" value="Numero de documento" />
+				<p:inputText id="documento_numero"
+					value="#{empleadosView.emp1.documento_numero}" />
+				<br></br>
+
+				<p:outputLabel for="nombres" value="Nombres" />
+				<p:inputText id="nombres" value="#{empleadosView.emp1.nombres}" />
+				<br></br>
+
+				<p:outputLabel for="apellidos" value="Apellidos" />
+				<p:inputText id="apellidos" value="#{empleadosView.emp1.apellidos}" />
+				<br></br>
+
+				<p:outputLabel for="departamentos_id1" value="Id de departamento" />
+				<p:selectOneMenu id="departamentos_id1"
+					value="#{empleadosView.emp1.departamentos_id}">
+					<f:selectItems value="#{empleadosView.lemp}" />
+				</p:selectOneMenu>
+				<br></br>
+
+				<p:outputLabel for="ciudad" value="Ciudad" />
+				<p:inputText id="ciudad" value="#{empleadosView.emp1.ciudad}" />
+				<br></br>
+
+				<p:outputLabel for="direccion" value="Direccion" />
+				<p:inputText id="direccion" value="#{empleadosView.emp1.direccion}" />
+				<br></br>
+
+				<p:outputLabel for="correo_electronico" value="Correo electronico" />
+				<p:inputText id="correo_electronico"
+					value="#{empleadosView.emp1.correo_electronico}" />
+				<br></br>
+
+				<p:outputLabel for="telefono" value="Telefono" />
+				<p:inputText id="telefono" value="#{empleadosView.emp1.telefono}" />
+				<br></br>
+
+
+
+				<p:commandButton update="@form" value="Crear"
+					action="#{empleadosView.createEmpl}">
+				</p:commandButton>
+			</h:panelGrid>
+
+		</p:dialog>
+
+		<p:dialog header="Editar" widgetVar="crearDialog2" id="dialog2"
+			modal="true" resizable="false">
+
+			<h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;"
+				id="pan2">
+
+
+				<p:outputLabel for="t_doc2" value="Selecciona tipo de documento:" />
+				<p:selectOneMenu id="t_doc2"
+					value="#{empleadosView.emp2.documento_tipo}">
+					<f:selectItem itemLabel="Selecciona opcion:" itemValue="" />
+					<f:selectItem itemLabel="Cedula de Ciudadania" itemValue="CC" />
+					<f:selectItem itemLabel="Registro Civil" itemValue="RC" />
+					<f:selectItem itemLabel="Tarjeta de Identidad" itemValue="TI" />
+					<f:selectItem itemLabel="Cedula de Extranjeria" itemValue="CE" />
+
+				</p:selectOneMenu>
+
+				<br></br>
+
+
+				<p:outputLabel for="documento_numero2" value="Numero de documento" />
+				<p:inputText id="documento_numero2"
+					value="#{empleadosView.emp2.documento_numero}" />
+				<br></br>
+
+				<p:outputLabel for="nombres2" value="Nombres" />
+				<p:inputText id="nombres2" value="#{empleadosView.emp2.nombres}" />
+				<br></br>
+
+				<p:outputLabel for="apellidos2" value="Apellidos" />
+				<p:inputText id="apellidos2" value="#{empleadosView.emp2.apellidos}" />
+				<br></br>
+
+				<p:outputLabel for="departamentos_id2" value="Id de departamento" />
+				<p:selectOneMenu id="departamentos_id2"
+					value="#{empleadosView.emp2.departamentos_id}">
+					<f:selectItems value="#{empleadosView.lemp}" />
+				</p:selectOneMenu>
+				<br></br>
+
+				<p:outputLabel for="ciudad2" value="Ciudad" />
+				<p:inputText id="ciudad2" value="#{empleadosView.emp2.ciudad}" />
+				<br></br>
+
+				<p:outputLabel for="direccion2" value="Direccion" />
+				<p:inputText id="direccion2" value="#{empleadosView.emp2.direccion}" />
+				<br></br>
+
+				<p:outputLabel for="correo_electronico2" value="Correo electronico" />
+				<p:inputText id="correo_electronico2"
+					value="#{empleadosView.emp2.correo_electronico}" />
+				<br></br>
+
+				<p:outputLabel for="telefono2" value="Telefono" />
+				<p:inputText id="telefono2" value="#{empleadosView.emp2.telefono}" />
+				<br></br>
+
+				<p:commandButton update="@form" value="Editar"
+					action="#{empleadosView.editEmpl}">
+				</p:commandButton>
+			</h:panelGrid>
+
+		</p:dialog>
+
+		<br></br>
+		<br></br>
+		<h:link outcome="index" value="Menu Principal" />
+
+
+	</h:form>
+</h:body>
+</html>

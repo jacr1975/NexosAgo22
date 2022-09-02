@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Prueba Nexos</title>
+        <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+              rel="stylesheet"></link>
+    </h:head>
+
+    <h:body>
+        <h:form id="prueba_nexos">
+
+
+
+
+            <p:dataTable id="deptList" var="dept" value="#{departamentosView.deps}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{dept.id}" />
+                </p:column>
+
+                <p:column headerText="departamento_codigo">
+                    <h:outputText value="#{dept.departamento_codigo}" />
+                </p:column>
+
+                <p:column headerText="departamento_nombre">
+                    <h:outputText value="#{dept.departamento_nombre}" />
+                </p:column>
+
+                <p:column headerText="Fecha de Creacion">
+                    <h:outputText value="#{dept.fecha_hora_crea}" />
+                </p:column>
+
+                <p:column headerText="Fecha de Modificacion">
+                    <h:outputText value="#{dept.fecha_hora_modifica}" />
+                </p:column>
+
+                <p:column>
+                    <p:commandButton update="deptList" value="Delete" icon="ui-icon-closethick"
+                                     action="#{departamentosView.deleteDept(dept.id)}" class="btn btn-primary">
+                    </p:commandButton>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton update="@form " value="Update" icon="ui-icon-closethick"
+                                     action="#{departamentosView.updateDept(dept.id)}"  oncomplete="PF('crearDialog2').show()">
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+            <br></br>
+
+            <p:commandButton id="crear" value="Crear" update="@form "
+
+                             action="#{departamentosView.limpiar}" oncomplete="PF('crearDialog').show()"     />
+
+            <p:dialog header="Crear" widgetVar="crearDialog" id="dialog"
+                      modal="true" resizable="false">
+
+                <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;" id="pan1">
+                    <p:outputLabel for="departamento_codigo" value="Codigo departamento"/>
+                    <p:inputText id="departamento_codigo" value="#{departamentosView.dept1.departamento_codigo}"/>
+                    <br></br>
+                    <p:outputLabel for="departamento_nombre" value="Nombre departamento"/>
+                    <p:inputText id="departamento_nombre" value="#{departamentosView.dept1.departamento_nombre}"/>
+                    <br></br>
+
+                    <p:commandButton update="@form" value="Crear"
+                                     action="#{departamentosView.createDept}">
+                    </p:commandButton>
+                </h:panelGrid>
+
+            </p:dialog>
+
+            <p:dialog header="Editar" widgetVar="crearDialog2" id="dialog2"
+                      modal="true" resizable="false">
+
+                <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;" id="pan2">
+                    <p:outputLabel for="departamento_codigo2" value="Codigo departamento"/>
+                    <p:inputText id="departamento_codigo2" value="#{departamentosView.dept2.departamento_codigo}"/>
+                    <br></br>
+                    <p:outputLabel for="departamento_nombre2" value="Nombre departamento"/>
+                    <p:inputText id="departamento_nombre2" value="#{departamentosView.dept2.departamento_nombre}"/>
+                    <br></br>
+
+                    <p:commandButton update="@form" value="Editar"
+                                     action="#{departamentosView.editDept}">
+                    </p:commandButton>
+                </h:panelGrid>
+
+            </p:dialog> 
+                        
+                <br></br>
+                <br></br>
+                <h:link outcome="index" value="Menu Principal"/>
+
+
+        </h:form>
+    </h:body>
+</html>
